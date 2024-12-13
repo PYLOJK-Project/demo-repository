@@ -1,0 +1,38 @@
+services:
+  backend:
+    image: ai/chat-demo-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysqldb
+
+
+  frontend:
+    image: node:16
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: ["npm","start"]
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysql8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root1209
+      MYSQL_DATABASE: temp
+      MYSQL_USER: tempuser
+      MYSQL_PASSWORD: temp1209
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
