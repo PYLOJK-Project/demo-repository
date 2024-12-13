@@ -1,6 +1,6 @@
 services:
   backend:
-    image: ai/chat-demo-backend
+    image: demo-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
